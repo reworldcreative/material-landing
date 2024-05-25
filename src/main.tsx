@@ -9,8 +9,8 @@ const root = createRoot(domNode!);
 
 root.render(
   <GlobalProvider>
-  <HashRouter>
-    <App />
-  </HashRouter>
+    <HashRouter>
+      <App />
+    </HashRouter>
   </GlobalProvider>
 );

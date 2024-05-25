@@ -14,6 +14,7 @@ function App() {
         <CssBaseline />
         <Routes>
           <Route index path="/" element={<MainPage />} />
+          <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
       </ThemeProvider>
     </>
