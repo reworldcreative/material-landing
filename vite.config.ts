@@ -154,6 +154,8 @@ export default defineConfig(({ command, mode }) => {
               return `img/[name].[ext]`;
             } else if (["woff", "woff2", "eot", "ttf", "otf"].includes(extType ? extType : "")) {
               return `fonts/[name].[ext]`;
+            } else if (["css"].includes(extType ? extType : "")) {
+              return `styles/[name].[ext]`;
             }
 
             return `[name].[ext]`;
