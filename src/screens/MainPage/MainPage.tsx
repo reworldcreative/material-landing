@@ -1,11 +1,17 @@
 import { FC } from "react";
 import "./MainPage.scss";
-import Header from "@/components/widgets/Header/Header";
+import Hero from "@/components/widgets/Hero/Hero";
+import { Container } from "@mui/material";
+import Employees from "@/components/widgets/Employees/Employees";
+
 const MainPage: FC = () => {
   return (
     <>
-      <Header />
-      <h1 className="read-the-docs">Start page</h1>
+      <Hero />
+
+      <Container component="div" className="main__container">
+        <Employees />
+      </Container>
     </>
   );
 };

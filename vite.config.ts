@@ -34,8 +34,8 @@ export default defineConfig(({ command, mode }) => {
       }),
       webfontDL(
         [
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
-          "https://fonts.googleapis.com/css2?family=Nunito:400&display=swap",
+          // "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
+          "https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap",
         ],
         {
           injectAsStyleTag: true, // вставляти завантажені стилі шрифтів як тег <style> безпосередньо у html документ.

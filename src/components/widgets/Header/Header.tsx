@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import "./Header.scss";
-import { AppBar, IconButton, Drawer, List, ListItem, Button, Container, useTheme } from "@mui/material";
+import { AppBar, IconButton, Drawer, Button, Container, useTheme } from "@mui/material";
 import Logo from "@/components/UI/Logo/Logo";
 import ThemeToggle from "@/components/UI/ThemeToggle/ThemeToggle";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -25,30 +25,50 @@ const Header: FC = () => {
   const menuItems = ["Users", "Sign up"];
 
   const list = () => (
-    <div role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
-      <List>
-        <ListItem key="theme">
-          <ThemeToggle />
-        </ListItem>
-
+    <Container
+      component="div"
+      className="flex-container header__container"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+      sx={{
+        maxWidth: "260px",
+        width: "100%",
+        margin: "0px",
+        [theme.breakpoints.up("lg")]: {
+          maxWidth: "260px",
+          width: "100%",
+        },
+      }}
+    >
+      <ThemeToggle />
+      <Container
+        component="div"
+        aria-label="header menu"
+        className="flex-container header__container"
+        sx={{
+          maxWidth: "210px",
+          margin: "0px",
+          justifyContent: "space-between",
+        }}
+      >
         {menuItems.map((text, index) => (
-          <ListItem key={index}>
-            <Button variant="contained">{text}</Button>
-          </ListItem>
+          <Button variant="contained" key={index}>
+            {text}
+          </Button>
         ))}
-      </List>
-    </div>
+      </Container>
+    </Container>
   );
 
   return (
     <div>
       <AppBar className="header">
-        <Container className="header__wrapper">
+        <Container className="header__wrapper main__container">
           <Logo />
 
           {isMobile ? (
             <IconButton
-              sx={{ color: theme.palette.primary.main }}
+              sx={{ color: theme.palette.primary.main, padding: "2px" }}
               edge="start"
               aria-label="menu"
               onClick={toggleDrawer(true)}
@@ -56,37 +76,7 @@ const Header: FC = () => {
               <MenuIcon sx={{ width: "30px", height: "30px" }} />
             </IconButton>
           ) : (
-            <Container
-              component="div"
-              className="flex-container"
-              sx={{
-                maxWidth: "250px !important",
-                width: "100% !important",
-                "@media (max-width: 400px)": {
-                  display: "grid",
-                  gap: "10px",
-                  justifyContent: "center",
-                },
-              }}
-            >
-              <ThemeToggle />
-              <Container
-                component="div"
-                aria-label="header menu"
-                className="flex-container"
-                sx={{
-                  width: "210px !important",
-                  "@media (max-width: 250px)": {
-                    display: "grid",
-                    gap: "10px",
-                    justifyContent: "center",
-                  },
-                }}
-              >
-                <Button variant="contained">Users</Button>
-                <Button variant="contained">Sign up</Button>
-              </Container>
-            </Container>
+            list()
           )}
         </Container>
       </AppBar>
@@ -97,15 +87,17 @@ const Header: FC = () => {
         PaperProps={{
           sx: {
             backgroundColor: theme.palette.background.default,
+            width: "100%",
+            maxWidth: "260px",
           },
         }}
       >
-        <div style={{ width: 250 }}>
+        <Container sx={{ maxWidth: 260 }}>
           <IconButton onClick={toggleDrawer(false)} sx={{ color: theme.palette.primary.main }}>
             <CloseIcon />
           </IconButton>
           {list()}
-        </div>
+        </Container>
       </Drawer>
     </div>
   );

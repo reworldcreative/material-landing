@@ -10,7 +10,11 @@ const ThemeToggle: FC = () => {
   const theme = useTheme();
 
   return (
-    <IconButton aria-label="change theme" onClick={toggleTheme}>
+    <IconButton
+      aria-label="change theme"
+      onClick={toggleTheme}
+      sx={{ width: "fit-content", margin: "auto", padding: "5px" }}
+    >
       {theme.palette.mode === "light" ? (
         <WbSunnyIcon sx={{ color: theme.palette.primary.main }} />
       ) : (
