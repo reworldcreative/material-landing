@@ -1,5 +1,18 @@
 import { FC, useEffect, useState } from "react";
-import { Card, CardContent, Avatar, Container, List, ListItem, Typography, Link, Button, Tooltip } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Avatar,
+  Container,
+  List,
+  ListItem,
+  Typography,
+  Link,
+  Button,
+  Tooltip,
+  Skeleton,
+  CircularProgress,
+} from "@mui/material";
 import Fade from "@mui/material/Fade";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 // import employeesList from "@/data/employees.json";
@@ -53,74 +66,107 @@ interface User {
 
 const Employees: FC = () => {
   const [employeesList, setEmployeesList] = useState<User[]>([]);
-  const { employeesToShow, setEmployeesToShow } = useGlobalContext();
+  const { employeesToShow } = useGlobalContext();
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    fetch(`https://dummyjson.com/users?limit=${employeesToShow.toString()}`)
-      .then((response) => response.json())
+  // useEffect(() => {
+  //   fetch(`https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=0`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setEmployeesList(data.users);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching users:", error);
+  //     });
+  // }, [employeesToShow]);
+
+  const fetchEmployees = async () => {
+    setLoading(true);
+    await fetch(
+      `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
-        setEmployeesList(data.users);
+        setEmployeesList((prevEmployees) => [...prevEmployees, ...data.users]);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  }, [employeesToShow]);
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <Container component="section" className="employees__section">
       <Typography variant="h2" sx={{ marginBottom: "70px" }}>
         Employees
       </Typography>
-
       <List>
-        {employeesList &&
-          employeesList.map((item, index) => (
-            <ListItem key={index}>
-              <Card>
-                <CardContent>
-                  <Avatar src={item.image} alt="avatar" />
-                  <Tooltip
-                    title={`${item.firstName} ${item.lastName}`}
-                    TransitionComponent={Fade}
-                    TransitionProps={{ timeout: 700 }}
-                  >
-                    <Typography variant="subtitle1" component="p">
-                      {item.firstName} {item.lastName}
-                    </Typography>
-                  </Tooltip>
-                  <Container component="div" className="employee__container">
+        {!loading
+          ? employeesList.map((item, index) => (
+              <ListItem key={index}>
+                <Card>
+                  <CardContent>
+                    <Avatar src={item.image} alt="avatar" />
                     <Tooltip
-                      title={`${item.company.name} ${item.company.title}`}
+                      title={`${item.firstName} ${item.lastName}`}
                       TransitionComponent={Fade}
                       TransitionProps={{ timeout: 700 }}
                     >
-                      <Typography variant="subtitle1" component="p">
-                        {item.company.name} {item.company.title}
+                      <Typography variant="subtitle1" component="p" color="primary">
+                        {item.firstName} {item.lastName}
                       </Typography>
                     </Tooltip>
-                    <Link href={`mailto:${item.email}`} color="primary" underline="none">
-                      {item.email}
-                    </Link>
+                    <Container component="div" className="employee__container">
+                      <Tooltip
+                        title={`${item.company.name} ${item.company.title}`}
+                        TransitionComponent={Fade}
+                        TransitionProps={{ timeout: 700 }}
+                      >
+                        <Typography variant="subtitle1" component="p" color="primary">
+                          {item.company.name} {item.company.title}
+                        </Typography>
+                      </Tooltip>
+                      <Link href={`mailto:${item.email}`} color="primary" underline="none">
+                        {item.email}
+                      </Link>
 
-                    <Link href={`tel:${item.phone.replace(/[\s()]/g, "")}`} color="primary" underline="none">
-                      {item.phone}
-                    </Link>
-                  </Container>
-                </CardContent>
-              </Card>
-            </ListItem>
-          ))}
+                      <Link href={`tel:${item.phone.replace(/[\s()]/g, "")}`} color="primary" underline="none">
+                        {item.phone}
+                      </Link>
+                    </Container>
+                  </CardContent>
+                </Card>
+              </ListItem>
+            ))
+          : Array.from({ length: employeesList.length + employeesToShow }).map((_, index) => (
+              <Skeleton variant="rounded" key={index} height={250} />
+            ))}
       </List>
 
-      <Button
-        variant="contained"
-        className="more-button"
-        onClick={() => {
-          setEmployeesToShow(employeesToShow + 3);
-        }}
-      >
-        Show more
-      </Button>
+      {!loading ? (
+        <Button
+          variant="contained"
+          className="more-button"
+          onClick={() => {
+            // setEmployeesToShow(employeesToShow + 6);
+            fetchEmployees();
+          }}
+        >
+          Show more
+        </Button>
+      ) : (
+        <CircularProgress sx={{ margin: "auto", display: "block", color: "blue" }} />
+      )}
     </Container>
   );
 };

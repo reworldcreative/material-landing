@@ -67,6 +67,11 @@ const theme = createTheme({
           minWidth: "100px",
           height: "34px",
           fontSize: "16px",
+
+          "&:disabled": {
+            color: "#ffffff",
+            background: "#B4B4B4",
+          },
         },
       },
 
@@ -78,6 +83,17 @@ const theme = createTheme({
             width: "120px",
             margin: "auto",
             textTransform: "none",
+          },
+        },
+        {
+          props: { variant: "outlined" },
+          style: {
+            display: "block",
+            textTransform: "none",
+            border: "1px solid #01636F",
+            borderRadius: "4px 0px 0px 4px",
+            padding: "14px 15px",
+            height: "auto",
           },
         },
       ],
@@ -176,6 +192,28 @@ const theme = createTheme({
           }),
 
           ...(ovnerState.className === "employee__container" && {
+            [theme.breakpoints.up("sm")]: {
+              padding: "0px",
+            },
+          }),
+
+          ...(ovnerState.className === "sign-up__form" && {
+            display: "grid",
+            gap: "50px",
+            maxWidth: "380px",
+            [theme.breakpoints.up("sm")]: {
+              padding: "0px",
+            },
+            [theme.breakpoints.up("lg")]: {
+              maxWidth: "380px",
+            },
+          }),
+
+          ...(ovnerState.className === "fileLoader__wrapper" && {
+            display: "flex",
+            alignItems: "center",
+            borderRadius: "4px",
+            border: "1px solid #00BDD3",
             [theme.breakpoints.up("sm")]: {
               padding: "0px",
             },
@@ -292,6 +330,40 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor: "#00BDD3", // колір бордюру
+            },
+            "&:hover fieldset": {
+              borderColor: "#0E1F3D", // колір бордюру при наведенні
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "#023573", // колір бордюру при фокусі
+            },
+            "&.Mui-error.Mui-focused fieldset": {
+              borderColor: "#d32f2f", // колір бордюру при фокусі та помилці
+            },
+            "&.Mui-error fieldset": {
+              borderColor: "#d32f2f", // колір бордюру при помилці
+            },
+          },
+        },
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: "#D0CFCF",
+          "&.Mui-checked": {
+            color: "#00BDD3",
+          },
+        },
+      },
+    },
   },
   breakpoints: {
     values: {
@@ -331,16 +403,20 @@ export const lightTheme: Theme = createTheme(theme, {
 
   components: {
     MuiButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: theme.palette.accent.light,
-          color: "#FAFAFA",
-          "&:hover": {
-            backgroundColor: "#FAFAFA",
-            color: theme.palette.accent.light,
+      variants: [
+        ...(theme.components?.MuiButton?.variants || []),
+        {
+          props: { variant: "contained" },
+          style: {
+            backgroundColor: theme.palette.accent.light,
+            color: "#FAFAFA",
+            "&:hover": {
+              backgroundColor: "#093789",
+              color: "#D9D9D9",
+            },
           },
         },
-      },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {
@@ -354,6 +430,29 @@ export const lightTheme: Theme = createTheme(theme, {
       styleOverrides: {
         root: {
           background: "#ffffff",
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.light,
+        },
+      },
+    },
+
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.light,
+        },
+      },
+    },
+
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          color: theme.palette.primary.light,
         },
       },
     },
@@ -374,7 +473,7 @@ export const darkTheme: Theme = createTheme(theme, {
       main: theme.palette.accent.dark,
     },
     background: {
-      default: "#565656",
+      default: "#1B1B1B",
     },
   },
   typography: {
@@ -385,16 +484,20 @@ export const darkTheme: Theme = createTheme(theme, {
   },
   components: {
     MuiButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#01636F",
-          color: "#FAFAFA",
-          "&:hover": {
-            backgroundColor: "#FAFAFA",
-            color: "#01636F",
+      variants: [
+        ...(theme.components?.MuiButton?.variants || []),
+        {
+          props: { variant: "contained" },
+          style: {
+            backgroundColor: "#01636F",
+            color: "#FAFAFA",
+            "&:hover": {
+              backgroundColor: "#093789",
+              color: "#D9D9D9",
+            },
           },
         },
-      },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {
@@ -408,6 +511,30 @@ export const darkTheme: Theme = createTheme(theme, {
       styleOverrides: {
         root: {
           background: "#565656",
+        },
+      },
+    },
+
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.dark,
+        },
+      },
+    },
+
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.primary.dark,
+        },
+      },
+    },
+
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          color: theme.palette.primary.dark,
         },
       },
     },

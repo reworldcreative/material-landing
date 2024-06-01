@@ -62,7 +62,7 @@ const Header: FC = () => {
 
   return (
     <div>
-      <AppBar className="header">
+      <AppBar className="header" sx={{ backgroundImage: "none" }}>
         <Container className="header__wrapper main__container">
           <Logo />
 
