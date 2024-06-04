@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode, useCallback } from "react";
+import { FC, createContext, useState, useContext, ReactNode, useCallback } from "react";
 
 export interface User {
   id: number;
@@ -118,7 +118,7 @@ interface GlobalContextType {
 
 export const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
-export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [employeesToShow, setEmployeesToShow] = useState<number>(6);
   const [employeesList, setEmployeesList] = useState<User[]>([]);

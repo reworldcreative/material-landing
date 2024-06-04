@@ -115,7 +115,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: "docs",
       chunkSizeWarningLimit: 2000, // 2000 байт
       cssCodeSplit: true, // чи слід розділяти CSS код на окремі файли
-      // target: "esnext", // використання ES модулів, які дозволяють браузерам завантажувати та кешувати модулі окремо.
+      target: "esnext", // використання ES модулів, які дозволяють браузерам завантажувати та кешувати модулі окремо.
       terserOptions: {
         compress: {
           drop_console: true, // Видаляє всі виклики функції console.*.
@@ -165,9 +165,9 @@ export default defineConfig(({ command, mode }) => {
 
             return `[name].[ext]`;
           },
-          manualChunks: {
-            vendor: ["react", "react-dom"],
-          },
+          // manualChunks: {
+          //   vendor: ["react", "react-dom"],
+          // },
         },
       },
       treeshake: true, // видаляє будь-які частини, які не використовуються.
