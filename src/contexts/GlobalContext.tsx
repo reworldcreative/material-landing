@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode, useCallback } from "react";
 
 export interface User {
   id: number;
@@ -125,18 +125,18 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [loading, setLoading] = useState<boolean>(true);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+  }, []);
 
-  const showPopup = () => {
+  const showPopup = useCallback(() => {
     setOpenPopup(true);
     setTimeout(() => {
       setOpenPopup(false);
     }, 3000);
-  };
+  }, []);
 
-  const addEmployees = (data: User) => {
+  const addEmployees = useCallback((data: User) => {
     setEmployeesList((prevEmployees) => [data, ...prevEmployees]);
     fetch("http://dummyjson.com/users/add", {
       method: "POST",
@@ -150,9 +150,9 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         company: { ...newUser.company, title: data.company.title },
       }),
     }).then((res) => res.json());
-  };
+  }, []);
 
-  const fetchEmployees = async () => {
+  const fetchEmployees = useCallback(async () => {
     setLoading(true);
     await fetch(
       `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`
@@ -170,7 +170,7 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       .catch((error) => {
         console.error("Error fetching users:", error);
       });
-  };
+  }, [employeesToShow, employeesList]);
 
   return (
     <GlobalContext.Provider
