@@ -13,7 +13,7 @@ import { ViteFaviconsPlugin } from "vite-plugin-favicon";
 import PurgeCSS from "@fullhuman/postcss-purgecss";
 import svgr from "vite-plugin-svgr";
 import imageminJpegRecompress from "imagemin-jpeg-recompress";
-import { chunkSplitPlugin } from "vite-plugin-chunk-split";
+// import { chunkSplitPlugin } from "vite-plugin-chunk-split";
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -78,7 +78,6 @@ export default defineConfig(({ command, mode }) => {
           formatFilePath: (path) => path.replace(/\.[^/.]+$/, "") + ".webp",
         },
       }),
-      chunkSplitPlugin(),
       env.VITE_FAVICONS === "favicons" &&
         ViteFaviconsPlugin({
           logo: "./src/assets/img/logo.svg", // шлях до вихідного зображення, яке буде використане для генерації favicon.
@@ -169,13 +168,7 @@ export default defineConfig(({ command, mode }) => {
           },
           // manualChunks: {
           //   vendor: ["react", "react-dom"],
-          //   lodash: ['lodash'],
           // },
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return id.toString().split("node_modules/")[1].split("/")[0].toString();
-            }
-          },
         },
       },
       treeshake: true, // видаляє будь-які частини, які не використовуються.
