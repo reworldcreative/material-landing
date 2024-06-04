@@ -9,6 +9,9 @@ const Hero: FC = () => {
       className="hero"
       sx={{
         backgroundImage: `url(${backgroundImage})`,
+        "@supports (background-image: url('example.webp'))": {
+          backgroundImage: `url(${backgroundImage.replace(/\.[^/.]+$/, "") + ".webp"})`,
+        },
       }}
     >
       <Container component="div" className="hero__wrapper">

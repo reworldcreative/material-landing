@@ -12,17 +12,39 @@ import {
 } from "@mui/material";
 import { useForm, SubmitHandler, FieldValues, Controller as HookController } from "react-hook-form";
 import FileLoaderDropzone from "@/components/forms/FileLoaderDropzone/FileLoaderDropzone";
+import { newUser, useGlobalContext } from "@/contexts/GlobalContext";
+import { useMask } from "@react-input/mask";
 
 const SignUp: FC = () => {
+  const { employeesList, addEmployees, showPopup } = useGlobalContext();
+
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isValid },
   } = useForm<FieldValues>({
     mode: "onChange",
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data.employeeAvatar);
+    addEmployees({
+      ...newUser,
+      id: employeesList.length + 1,
+      image: data.employeeAvatar !== "" ? URL.createObjectURL(data.employeeAvatar) : "",
+      firstName: data.employeeName,
+      lastName: data.employeeName,
+      email: data.employeeEmail,
+      phone: data.employeePhone,
+      company: { ...newUser.company, title: data.employeePosition },
+    });
+    reset();
+    showPopup();
+  };
+
+  const inputRef = useMask({ mask: "+38 (___) ___-__-__", replacement: "_" });
 
   return (
     <Container component="section" className="sign-up__section">
@@ -65,13 +87,14 @@ const SignUp: FC = () => {
 
         <TextField
           error={!!errors.employeePhone}
+          inputRef={inputRef}
           id="employeePhone"
           label="Phone"
           variant="outlined"
           color="primary"
           {...register("employeePhone", {
             validate: {
-              correctFormat: (value) => /^\+38\d{3}\d{3}\d{2}\d{2}$/.test(value), ///^\+38 \(\d{3}\) \d{3} - \d{2} - \d{2}$/
+              correctFormat: (value) => /^\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(value), ///^\+38 \(\d{3}\) \d{3} - \d{2} - \d{2}$/
             },
           })}
           helperText={errors?.employeePhone?.message?.toString() || "+38 (XXX) XXX - XX - XX"}
@@ -80,7 +103,7 @@ const SignUp: FC = () => {
         <FormControl>
           <FormLabel id="radio-buttons-group-label">Select your position</FormLabel>
           <HookController
-            name="employee-position"
+            name="employeePosition"
             control={control}
             defaultValue="Frontend developer"
             render={({ field }) => (
@@ -94,7 +117,12 @@ const SignUp: FC = () => {
           />
         </FormControl>
 
-        <FileLoaderDropzone />
+        <HookController
+          name="employeeAvatar"
+          control={control}
+          defaultValue=""
+          render={({ field: { onChange } }) => <FileLoaderDropzone onImageChange={onChange} />}
+        />
 
         <Button variant="contained" sx={{ margin: "auto", display: "block" }} type="submit" disabled={!isValid}>
           Sign up

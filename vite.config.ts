@@ -12,6 +12,7 @@ import imageminOptipng from "imagemin-optipng";
 import { ViteFaviconsPlugin } from "vite-plugin-favicon";
 import PurgeCSS from "@fullhuman/postcss-purgecss";
 import svgr from "vite-plugin-svgr";
+import imageminJpegRecompress from "imagemin-jpeg-recompress";
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -50,9 +51,13 @@ export default defineConfig(({ command, mode }) => {
       }), // для генерації легасі версій JavaScript та CSS для застарілих браузерів, які не підтримують сучасний синтаксис або функціональність.
       viteImagemin({
         exclude: [/favicons\/.*\.png$/],
+        skipIfLarger: true,
+        clearCache: true,
         plugins: {
-          jpg: imageminMozjpeg({
-            arithmetic: true,
+          // imageminJpegRecompress працює з великим розміром файлів
+          jpg: imageminJpegRecompress({
+            accurate: true,
+            max: 70,
           }),
           png: imageminOptipng({
             optimizationLevel: 5,

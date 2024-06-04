@@ -148,9 +148,11 @@ const theme = createTheme({
               display: "grid",
               gap: "10px",
               padding: "0px",
+              justifyContent: "center",
             },
             [theme.breakpoints.up("sm")]: {
               display: "flex",
+              justifyContent: "space-between",
             },
           }),
 
@@ -214,6 +216,7 @@ const theme = createTheme({
             alignItems: "center",
             borderRadius: "4px",
             border: "1px solid #00BDD3",
+            padding: "0px",
             [theme.breakpoints.up("sm")]: {
               padding: "0px",
             },
@@ -300,7 +303,6 @@ const theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          display: "block",
           wordBreak: "break-word",
           overflowWrap: "break-word",
 
