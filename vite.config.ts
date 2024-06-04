@@ -13,7 +13,6 @@ import { ViteFaviconsPlugin } from "vite-plugin-favicon";
 import PurgeCSS from "@fullhuman/postcss-purgecss";
 import svgr from "vite-plugin-svgr";
 import imageminJpegRecompress from "imagemin-jpeg-recompress";
-// import { chunkSplitPlugin } from "vite-plugin-chunk-split";
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -166,9 +165,10 @@ export default defineConfig(({ command, mode }) => {
 
             return `[name].[ext]`;
           },
-          // manualChunks: {
-          //   vendor: ["react", "react-dom"],
-          // },
+          manualChunks: {
+            vendor: ["react", "react-dom"],
+            mui: ["@mui/material", "@mui/icons-material"],
+          },
         },
       },
       treeshake: true, // видаляє будь-які частини, які не використовуються.
