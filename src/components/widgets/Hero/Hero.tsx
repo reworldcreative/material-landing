@@ -1,6 +1,7 @@
 import { FC } from "react";
 import backgroundImage from "@img/hero-bunner.jpg";
 import { Button, Container, Typography } from "@mui/material";
+import { HashLink } from "react-router-hash-link";
 
 const Hero: FC = () => {
   return (
@@ -24,7 +25,7 @@ const Hero: FC = () => {
           development specialist must know the UI component MUI library, since it is often in demand
         </Typography>
 
-        <Button variant="contained" sx={{ margin: "auto", display: "block" }}>
+        <Button variant="contained" sx={{ margin: "auto" }} component={HashLink} to="#Sign up" smooth>
           Sign up
         </Button>
       </Container>

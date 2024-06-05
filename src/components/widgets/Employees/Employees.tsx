@@ -27,7 +27,7 @@ const Employees: FC = () => {
   }, []);
 
   return (
-    <Container component="section" className="employees__section">
+    <Container component="section" className="employees__section" id="Users">
       <Typography variant="h2" sx={{ marginBottom: "70px" }}>
         Employees
       </Typography>

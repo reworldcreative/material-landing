@@ -47,7 +47,7 @@ const SignUp: FC = () => {
   const inputRef = useMask({ mask: "+38 (___) ___-__-__", replacement: "_" });
 
   return (
-    <Container component="section" className="sign-up__section">
+    <Container component="section" className="sign-up__section" id="Sign up">
       <Typography variant="h2" sx={{ marginBottom: "50px" }}>
         Sign Up
       </Typography>

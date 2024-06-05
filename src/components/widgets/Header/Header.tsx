@@ -6,6 +6,7 @@ import ThemeToggle from "@/components/UI/ThemeToggle/ThemeToggle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { HashLink } from "react-router-hash-link";
 
 const Header: FC = () => {
   const [open, setOpen] = useState(false);
@@ -52,7 +53,7 @@ const Header: FC = () => {
         }}
       >
         {menuItems.map((text, index) => (
-          <Button variant="contained" key={index}>
+          <Button variant="contained" key={index} component={HashLink} to={`#${text}`} smooth>
             {text}
           </Button>
         ))}
