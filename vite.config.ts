@@ -168,6 +168,7 @@ export default defineConfig(({ command, mode }) => {
           manualChunks: {
             vendor: ["react", "react-dom"],
             mui: ["@mui/material", "@mui/icons-material"],
+            reactHookForm: ["react-hook-form"],
           },
         },
       },
