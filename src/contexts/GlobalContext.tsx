@@ -158,6 +158,26 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, []);
 
+  // const fetchEmployees = useCallback(async () => {
+  //   setLoading(true);
+  //   await fetch(
+  //     `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`
+  //   )
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setEmployeesList((prevEmployees) => [...prevEmployees, ...data.users]);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching users:", error);
+  //     });
+  // }, [employeesToShow, employeesList]);
+
   const fetchEmployees = useCallback(() => {
     const worker = new Worker(new URL("./dataWorker.ts", import.meta.url), {
       type: "module",
