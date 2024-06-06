@@ -115,7 +115,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: "docs",
       chunkSizeWarningLimit: 2000, // 2000 байт
       cssCodeSplit: true, // чи слід розділяти CSS код на окремі файли
-      target: "esnext", // використання ES модулів, які дозволяють браузерам завантажувати та кешувати модулі окремо.
+      // target: "esnext", // використання ES модулів, які дозволяють браузерам завантажувати та кешувати модулі окремо.
       terserOptions: {
         compress: {
           drop_console: true, // Видаляє всі виклики функції console.*.
@@ -169,7 +169,7 @@ export default defineConfig(({ command, mode }) => {
             reactHookForm: ["react-hook-form"],
             reactHashLink: ["react-router-hash-link"],
             react: ["react"],
-            reactDom: ["react-dom/client"],
+            reactDom: ["react-dom"],
             reactRouterDom: ["react-router-dom"],
             // muiPopUp: ["@mui/material/Dialog", "@mui/material/DialogContent", "@mui/system"],
             // muiEmployees: [
@@ -200,12 +200,12 @@ export default defineConfig(({ command, mode }) => {
             //   "@mui/icons-material/Menu",
             //   "@mui/icons-material/Close",
             // ],
-            muiCommon: [
-              "@mui/material/Button",
-              "@mui/material/Container",
-              "@mui/material/Typography",
-              "@mui/material/Link",
-            ],
+            // muiCommon: [
+            //   "@mui/material/Button",
+            //   "@mui/material/Container",
+            //   "@mui/material/Typography",
+            //   "@mui/material/Link",
+            // ],
             // mui: ["@mui/material", "@mui/icons-material"],
           },
         },
