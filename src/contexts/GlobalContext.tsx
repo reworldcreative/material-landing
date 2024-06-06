@@ -1,4 +1,4 @@
-import { FC, createContext, useState, useContext, ReactNode, useCallback } from "react";
+import { FC, createContext, useState, useContext, ReactNode, useCallback, useEffect } from "react";
 
 export interface User {
   id: number;
@@ -199,6 +199,10 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const url = `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`;
     worker.postMessage({ url });
   }, [employeesToShow, employeesList]);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <GlobalContext.Provider
