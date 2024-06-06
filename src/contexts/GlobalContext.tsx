@@ -1,4 +1,4 @@
-import { FC, createContext, useState, useContext, ReactNode, useCallback } from "react";
+import { FC, createContext, useState, useContext, ReactNode, useCallback, useEffect } from "react";
 
 export interface User {
   id: number;
@@ -136,20 +136,26 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }, 3000);
   }, []);
 
-  const addEmployees = useCallback((data: User) => {
+  const addEmployees = useCallback(async (data: User) => {
     setEmployeesList((prevEmployees) => [data, ...prevEmployees]);
-    fetch("http://dummyjson.com/users/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        image: data.image,
-        email: data.email,
-        phone: data.phone,
-        company: { ...newUser.company, title: data.company.title },
-      }),
-    }).then((res) => res.json());
+    try {
+      const response = await fetch("http://dummyjson.com/users/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          image: data.image,
+          email: data.email,
+          phone: data.phone,
+          company: { ...newUser.company, title: data.company.title },
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error("Error adding employee:", error);
+    }
   }, []);
 
   const fetchEmployees = useCallback(async () => {
@@ -171,6 +177,10 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
         console.error("Error fetching users:", error);
       });
   }, [employeesToShow, employeesList]);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <GlobalContext.Provider

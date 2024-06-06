@@ -1,10 +1,5 @@
 import { createTheme, Theme, responsiveFontSizes } from "@mui/material/styles";
 
-// const containsWholeWord = (str: string, word: string) => {
-//   const regex = new RegExp(`\\b${word}\\b`, "i");
-//   return regex.test(str);
-// };
-
 const mainTypography = {
   fontSize: "16px",
   lineHeight: "1.625",
