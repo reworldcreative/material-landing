@@ -125,16 +125,26 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
-  const toggleTheme = useCallback(() => {
+  // const toggleTheme = useCallback(() => {
+  //   setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  // }, []);
+  const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  }, []);
+  };
 
-  const showPopup = useCallback(() => {
+  // const showPopup = useCallback(() => {
+  //   setOpenPopup(true);
+  //   setTimeout(() => {
+  //     setOpenPopup(false);
+  //   }, 3000);
+  // }, []);
+
+  const showPopup = () => {
     setOpenPopup(true);
     setTimeout(() => {
       setOpenPopup(false);
     }, 3000);
-  }, []);
+  };
 
   const addEmployees = useCallback(async (data: User) => {
     setEmployeesList((prevEmployees) => [data, ...prevEmployees]);
