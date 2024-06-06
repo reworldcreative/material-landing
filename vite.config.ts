@@ -168,7 +168,8 @@ export default defineConfig(({ command, mode }) => {
           manualChunks: {
             reactHookForm: ["react-hook-form"],
             reactHashLink: ["react-router-hash-link"],
-            react: ["react", "react-dom"],
+            react: ["react"],
+            reactDom: ["react-dom"],
             reactRouterDom: ["react-router-dom"],
             // muiPopUp: ["@mui/material/Dialog", "@mui/material/DialogContent", "@mui/system"],
             // muiEmployees: [

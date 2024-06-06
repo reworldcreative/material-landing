@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -20,6 +20,10 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 const Employees: FC = () => {
   const theme = useTheme();
   const { employeesToShow, employeesList, fetchEmployees, loading } = useGlobalContext();
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   return (
     <Container component="section" className="employees__section" id="Users">
