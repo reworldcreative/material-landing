@@ -158,24 +158,26 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, []);
 
-  const fetchEmployees = useCallback(async () => {
+  const fetchEmployees = useCallback(() => {
+    const worker = new Worker(new URL("./dataWorker.ts", import.meta.url), {
+      type: "module",
+    });
+
     setLoading(true);
-    await fetch(
-      `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setEmployeesList((prevEmployees) => [...prevEmployees, ...data.users]);
-        setLoading(false);
-      })
-      .catch((error) => {
+
+    worker.onmessage = (event) => {
+      const { success, data, error } = event.data;
+      if (success) {
+        setEmployeesList((prevEmployees) => [...prevEmployees, ...data]);
+      } else {
         console.error("Error fetching users:", error);
-      });
+      }
+      setLoading(false);
+      worker.terminate();
+    };
+
+    const url = `https://dummyjson.com/users?limit=${employeesToShow.toString()}&skip=${employeesList.length.toString()}`;
+    worker.postMessage({ url });
   }, [employeesToShow, employeesList]);
 
   useEffect(() => {
