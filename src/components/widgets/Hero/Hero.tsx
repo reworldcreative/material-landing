@@ -1,4 +1,4 @@
-import { FC,memo } from "react";
+import { FC, memo } from "react";
 import backgroundImage from "@img/hero-bunner.jpg";
 import { Button, Container, Typography } from "@mui/material";
 import { HashLink } from "react-router-hash-link";
