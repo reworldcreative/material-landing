@@ -33,19 +33,19 @@ export default defineConfig(({ command, mode }) => {
         svgrOptions: { exportType: "named", ref: true, svgo: false, titleProp: true },
         include: "**/*.svg",
       }),
-      // webfontDL(
-      //   [
-      //     // "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
-      //     "https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap",
-      //   ],
-      //   {
-      //     injectAsStyleTag: true, // вставляти завантажені стилі шрифтів як тег <style> безпосередньо у html документ.
-      //     minifyCss: true, // мініфікувати CSS перед вставкою
-      //     async: true, // Асинхронне завантаження шрифтів
-      //     cache: true, // кешувати завантажені шрифти для подальшого використання
-      //     proxy: false, // використовувати проксі для завантаження шрифтів
-      //   }
-      // ),
+      webfontDL(
+        [
+          // "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap",
+          "https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap",
+        ],
+        {
+          injectAsStyleTag: true, // вставляти завантажені стилі шрифтів як тег <style> безпосередньо у html документ.
+          minifyCss: true, // мініфікувати CSS перед вставкою
+          async: true, // Асинхронне завантаження шрифтів
+          cache: true, // кешувати завантажені шрифти для подальшого використання
+          proxy: false, // використовувати проксі для завантаження шрифтів
+        }
+      ),
       legacy({
         targets: ["defaults"],
       }), // для генерації легасі версій JavaScript та CSS для застарілих браузерів, які не підтримують сучасний синтаксис або функціональність.

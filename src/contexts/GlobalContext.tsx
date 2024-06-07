@@ -133,7 +133,7 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   //   setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   // };
 
-  const showPopup = useCallback(() => {
+  const showPopup = useCallback(async () => {
     setOpenPopup(true);
     setTimeout(() => {
       setOpenPopup(false);
