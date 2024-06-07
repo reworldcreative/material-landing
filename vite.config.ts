@@ -169,7 +169,7 @@ export default defineConfig(({ command, mode }) => {
             reactHookForm: ["react-hook-form"],
             reactHashLink: ["react-router-hash-link"],
             react: ["react"],
-            reactDom: ["react-dom/client"],
+            reactDom: ["react-dom"],
             reactRouterDom: ["react-router-dom"],
             // muiPopUp: ["@mui/material/Dialog", "@mui/material/DialogContent", "@mui/system"],
             // muiEmployees: [
