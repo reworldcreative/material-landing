@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { IconButton } from "@mui/material";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { useTheme } from "@mui/material/styles";
 
-const ThemeToggle: FC = () => {
+const ThemeToggle: FC = memo(() => {
   const { toggleTheme } = useGlobalContext();
   const theme = useTheme();
 
@@ -22,6 +22,6 @@ const ThemeToggle: FC = () => {
       )}
     </IconButton>
   );
-};
+});
 
 export default ThemeToggle;

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState,memo } from "react";
 import "./Header.scss";
 import { AppBar, IconButton, Drawer, Button, Container, useTheme } from "@mui/material";
 import Logo from "@/components/UI/Logo/Logo";
@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { HashLink } from "react-router-hash-link";
 
-const Header: FC = () => {
+const Header: FC =memo( () => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -102,6 +102,6 @@ const Header: FC = () => {
       </Drawer>
     </div>
   );
-};
+});
 
 export default Header;

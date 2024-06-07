@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { styled } from "@mui/system";
 import { Dialog, DialogContent, Typography, useTheme } from "@mui/material";
 import PictureComponent from "@plugins/PictureComponent";
 import successImage from "@img/success-image.png";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 
-const PopUp: FC = () => {
+const PopUp: FC = memo(() => {
   const theme = useTheme();
   const { openPopup } = useGlobalContext();
 
@@ -42,6 +42,6 @@ const PopUp: FC = () => {
       </StyledDialogContent>
     </StyledPopUp>
   );
-};
+});
 
 export default PopUp;

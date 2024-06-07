@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import {
   Button,
   Container,
@@ -15,7 +15,7 @@ import FileLoaderDropzone from "@/components/forms/FileLoaderDropzone/FileLoader
 import { newUser, useGlobalContext } from "@/contexts/GlobalContext";
 import { useMask } from "@react-input/mask";
 
-const SignUp: FC = () => {
+const SignUp: FC = memo(() => {
   const { employeesList, addEmployees, showPopup } = useGlobalContext();
 
   const {
@@ -130,6 +130,6 @@ const SignUp: FC = () => {
       </Container>
     </Container>
   );
-};
+});
 
 export default SignUp;

@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC,memo } from "react";
 import backgroundImage from "@img/hero-bunner.jpg";
 import { Button, Container, Typography } from "@mui/material";
 import { HashLink } from "react-router-hash-link";
 
-const Hero: FC = () => {
+const Hero: FC = memo(() => {
   return (
     <Container
       component="div"
@@ -31,6 +31,6 @@ const Hero: FC = () => {
       </Container>
     </Container>
   );
-};
+});
 
 export default Hero;

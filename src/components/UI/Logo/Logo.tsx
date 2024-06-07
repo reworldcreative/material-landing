@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import "./Logo.scss";
 import { Link as MuiLink, Typography, useTheme } from "@mui/material";
 import { ReactComponent as LogoIcon } from "@img/logo.svg";
 import { Link as RouterLink } from "react-router-dom";
 
-const Logo: FC = () => {
+const Logo: FC = memo(() => {
   const theme = useTheme();
   return (
     <MuiLink
@@ -27,6 +27,6 @@ const Logo: FC = () => {
       </Typography>
     </MuiLink>
   );
-};
+});
 
 export default Logo;
