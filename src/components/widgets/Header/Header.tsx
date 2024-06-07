@@ -1,6 +1,6 @@
-import { FC, useState,memo } from "react";
+import { FC, useState, memo, lazy, Suspense } from "react";
 import "./Header.scss";
-import { AppBar, IconButton, Drawer, Button, Container, useTheme } from "@mui/material";
+import { AppBar, IconButton, Button, Container, useTheme } from "@mui/material";
 import Logo from "@/components/UI/Logo/Logo";
 import ThemeToggle from "@/components/UI/ThemeToggle/ThemeToggle";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,7 +8,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { HashLink } from "react-router-hash-link";
 
-const Header: FC =memo( () => {
+const Drawer = lazy(() => import("@mui/material/Drawer"));
+
+const Header: FC = memo(() => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -81,25 +83,27 @@ const Header: FC =memo( () => {
           )}
         </Container>
       </AppBar>
-      <Drawer
-        anchor="left"
-        open={open}
-        onClose={toggleDrawer(false)}
-        PaperProps={{
-          sx: {
-            backgroundColor: theme.palette.background.default,
-            width: "100%",
-            maxWidth: "260px",
-          },
-        }}
-      >
-        <Container sx={{ maxWidth: 260 }}>
-          <IconButton onClick={toggleDrawer(false)} sx={{ color: theme.palette.primary.main }}>
-            <CloseIcon />
-          </IconButton>
-          {list()}
-        </Container>
-      </Drawer>
+      <Suspense fallback={<></>}>
+        <Drawer
+          anchor="left"
+          open={open}
+          onClose={toggleDrawer(false)}
+          PaperProps={{
+            sx: {
+              backgroundColor: theme.palette.background.default,
+              width: "100%",
+              maxWidth: "260px",
+            },
+          }}
+        >
+          <Container sx={{ maxWidth: 260 }}>
+            <IconButton onClick={toggleDrawer(false)} sx={{ color: theme.palette.primary.main }}>
+              <CloseIcon />
+            </IconButton>
+            {list()}
+          </Container>
+        </Drawer>
+      </Suspense>
     </div>
   );
 });
