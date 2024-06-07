@@ -1,0 +1,1 @@
+(function(){"use strict";self.onmessage=async r=>{const{url:t}=r.data;try{const s=await fetch(t);if(!s.ok)throw new Error("HTTP error! status: ".concat(s.status));const e=await s.json();self.postMessage({success:!0,data:e.users})}catch(s){let e="Unknown error";s instanceof Error&&(e=s.message),self.postMessage({success:!1,error:e})}}})();
