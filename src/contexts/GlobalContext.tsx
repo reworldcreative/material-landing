@@ -125,7 +125,7 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = useCallback(async () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   }, []);
 
